@@ -1,0 +1,22 @@
+
+
+
+- Machine learning-integrated 5D BIM informatics: building materials costs data classification and prototype development : 
+https://link.springer.com/article/10.1007/s41062-022-00822-y#Fig6
+
+-SheetLink | Excel Import/Export :
+https://apps.autodesk.com/RVT/en/Detail/Index?id=4089038677237188183&appLang=en&os=Win64
+***
+- Dev Docs pyRevit :
+https://www.notion.so/Developer-Docs-2c88f3ecccde422d9504e20b6b9e04f8
+
+- Mini Book (not free) :
+https://ko-fi.com/s/14b0b8e31c
+
+-Erik 
+https://www.learnrevitapi.com/
+
+-revitapidocs :
+https://www.revitapidocs.com/2023/3dc6542a-ed72-81a1-7cf8-8af17a6c2949.htm
+
+***
