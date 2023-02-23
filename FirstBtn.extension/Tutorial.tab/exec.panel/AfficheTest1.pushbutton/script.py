@@ -6,7 +6,7 @@ This is the button for showing the result of AI code ...
 """
 
 print("*****")
-f=open("C:\\Users\\YOUSSEF\\test.txt","r")
+f=open("C:\\Users\\YOUSSEF\\PFE\\test.txt","r")
 print (f.read())
 f.close()
 print("*****")
