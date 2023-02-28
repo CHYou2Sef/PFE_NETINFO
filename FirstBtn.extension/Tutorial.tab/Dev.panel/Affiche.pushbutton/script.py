@@ -4,6 +4,7 @@ __author__ = "Chebl Youssef"
 __doc__ =   """
 This is the first button ...
 """
+__context__ = 'Selection'
 #var
 udoc = __revit__.ActiveUIDocument
 

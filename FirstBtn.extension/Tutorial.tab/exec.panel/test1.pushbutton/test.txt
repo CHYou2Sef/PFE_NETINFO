@@ -1,3 +1,0 @@
-materiau fenetre = ['verre tremp']
-materiau porte = ['acier']
-materiau mur = ['brique']
