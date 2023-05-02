@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __title__ = "Revit Parameters"
 __doc__   = "Version 1.0"
 
@@ -132,7 +133,7 @@ print(wall_comments.AsString())
 t = Transaction(doc , __title__)
 t.Start()
 
-wall_comments.Set("This what i am write ...")
+wall_comments.Set("What is This ...")
 print(wall_comments.AsString())
 
 t.Commit()
@@ -149,8 +150,11 @@ all_walls = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).
 
 for wall in all_walls:
     wall_mark = wall.get_Parameter(BuiltInParameter.ALL_MODEL_MARK)
+    wall_coast = wall.get_Parameter(BuiltInParameter.ALL_MODEL_COST)
+
     wall_mark.Set(str(wall.Id))
-    print(wall.Id)
+    # print(wall.Id)
+    print ("Coast :",wall_coast)
 
 t.Commit()
-print ("This is my keyboard  ")
+print ("This is my keyboard hhh ")

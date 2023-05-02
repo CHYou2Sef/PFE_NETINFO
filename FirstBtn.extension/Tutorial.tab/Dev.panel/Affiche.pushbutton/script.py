@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 __title__ = "IA code"
 __author__ = "Chebl Youssef"

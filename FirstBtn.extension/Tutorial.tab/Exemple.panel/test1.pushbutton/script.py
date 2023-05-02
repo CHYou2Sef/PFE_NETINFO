@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __title__ = "Aff_Test 1"
 __author__ = "Chebl Youssef"
 __doc__ =   """

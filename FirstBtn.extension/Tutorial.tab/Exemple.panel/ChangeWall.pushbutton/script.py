@@ -1,23 +1,28 @@
-
+# -*- coding: utf-8 -*-
 __name__ = "Change element "
 __title__ = "change selected wall"
 __doc__   = "Version 0.1"
 
 import clr
 clr.AddReference('RevitAPI')
+from Autodesk.Revit.UI.Selection import ObjectType
 from Autodesk.Revit.DB import *
 
-doc = __revit__.ActiveUIDocument.Document
-uidoc = __revit__.ActiveUIDocument
+doc       = __revit__.ActiveUIDocument.Document
+uidoc     = __revit__.ActiveUIDocument
 
-selection = __revit__.ActiveUIDocument.Selection
+#selection = __revit__.ActiveUIDocument.Selection
+selection = uidoc.Selection.GetElementIds()
+
 
 # Prompt the user to select a wall
-selected_wall = selection.PickObject(ObjectType.Element, "Select a wall")
+#selected_wall = selection.PickObject(ObjectType.Element, "Select a wall")
 
 # Get the Element ID of the selected wall
-wall_id = selected_wall.ElementId
+#wall_id = selected_wall.ElementId
+#print (wall_id)
 
+#Selected element
 if len(selection) != 1:
     raise Exception("Select a wall.")
 
@@ -28,7 +33,10 @@ selected_wall = doc.GetElement(selection.First())
 t = Transaction(doc, __title__)
 t.Start()
 
-material_id = ElementId(wall_id) # Replace 123456 with the desired material ID
+material_id = ElementId(849032) # Replace with the desired material ID
+print (material_id)
+
 selected_wall.Parameter[BuiltInParameter.WALL_STRUCTURAL_SIGNIFICANT].Set(material_id)
 
 t.Commit()
+

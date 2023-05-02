@@ -1,3 +1,6 @@
+# # -*- coding: utf-8 -*-
+
+
 __name__ = "Show all"
 __title__ = "Test Tutorial"
 __doc__   = "Version 1.0"

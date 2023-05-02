@@ -1,18 +1,90 @@
-import pyrevit
+# -*- coding: utf-8 -*-
+
+# __title__ = ' info '
+# __author__ = 'Chebl Youssef'
+
+"""Show all windows infomation..."""
+
+import os
+os.path.exists
+
+# import pyrevit
+import math
+# __context__ = 'Selection'
+
+# Import the necessary modules
+import clr
+clr.AddReference('RevitAPI')
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.DB import *
+
 from pyrevit import revit, DB
+import os
+os.path.exists
+# Get the active Revit document
+doc = __revit__.ActiveUIDocument.Document
 
-# retrieve project information
-doc = revit.doc
-project_info = doc.ProjectInformation
+# element    = doc.GetElement(element_id)
+#   surf = 0
+print("*"*100)
+print("Windows family :")
+print("*"*100)
+# Create a FilteredElementCollector to get all the windows
+windows = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType().ToElements()
+#windows = FilteredElementCollector(doc).OfClass(window).WhereElement
 
-# retrieve and format project start and end dates
-start_date = project_info.get_Parameter(DB.BuiltInParameter.PROJECT_START_DATE).AsValueString()
-end_date = project_info.get_Parameter(DB.BuiltInParameter.PROJECT_END_DATE).AsValueString()
 
-# print project properties
-print("Project Name:", project_info.Name)
-print("Project Number:", project_info.get_Parameter(DB.BuiltInParameter.PROJECT_NUMBER).AsString())
-print("Project Address:", project_info.get_Parameter(DB.BuiltInParameter.PROJECT_ADDRESS).AsString())
-print("Project Status:", project_info.Status)
-print("Project Start Date:", start_date)
-print("Project End Date:", end_date)
+# Loop through the windows and do something with them
+for window in windows:
+    # Do something with the wall, for example, print its name
+
+    id  = window.Id
+    element    = doc.GetElement(id)
+
+    print("*"*10)
+    print ("ID",id.IntegerValue )
+    print("Name :",window.Name)
+    print("UniqueId :",window.UniqueId)
+    # print("Location :",window.Location.ToString)
+    print("IsValidObject :",window.IsValidObject)
+    print("IsTransient :",window.IsTransient )
+    # print("Category :",window.Category)
+
+    cons = element.Symbol.GetThermalProperties().AnalyticConstructionName
+    u_val = element.Symbol.GetThermalProperties().HeatTransferCoefficient
+    r_val = element.Symbol.GetThermalProperties().ThermalResistance
+    vis = element.Symbol.GetThermalProperties().VisualLightTransmittance
+
+    print ("It has Thermal Properties ?")
+    print(element.Symbol.HasThermalProperties())
+    print ("The construction gbXML name:",cons)
+    print ("The transfer  coefficient value (U-Value):",u_val)
+    print ("The thermal resistance value (R-Value): ",r_val)
+    print ("The visual light transmittance: ",vis)
+
+    param_set = window.Parameters
+    # PRINT PARAMETER VALUES FOR THE SELECTED ELEMENT
+    print("Parameter Values:")
+    for param in param_set:
+        print(param.Definition.Name, param.AsString(), param.AsValueString(), param.AsDouble())
+        print("Storage type: ", param.StorageType, ", read only :", param.IsReadOnly)
+        if (param.Definition.Name == "Surface"):
+            surf = param.AsDouble()
+    s = math.ceil(surf) / 10
+
+    H = u_val * s
+    print ("{} * {} = {} W/m².K".format(u_val, s, H))
+    print ("le coefficient de déperdition = {} W/m².K ".format(H))
+
+    print ("*** Calcul la puissance de chauffage (déperdition surfacique) \n θ (W) = H * ∆T")
+
+    Tex = 17
+    # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
+    Pch = H * (20 - Tex)
+    print ("{} * (20 - {}) = {} W ".format(H, Tex, Pch))
+    print ("la puissance de chauffage = {} W ".format(Pch))
+    print ("-" * 10)
+
+
+
+
