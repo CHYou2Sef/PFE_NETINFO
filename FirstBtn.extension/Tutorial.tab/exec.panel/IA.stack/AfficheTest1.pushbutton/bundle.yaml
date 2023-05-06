@@ -1,0 +1,12 @@
+help_url: '{{docpath}}pAM-ARIXXLw'
+title:
+  fr_fr: IA Test
+  en_us: Test IA
+tooltip:
+  fr_fr: >-
+     Tester un code existe anaconda
+     Il ne fonctionne pas comme n anaconda car il manque des librairies
+  en_us: >-
+     Test a code exists anaconda
+     It does not work like n anaconda because there are missing libraries 
+context: Tester

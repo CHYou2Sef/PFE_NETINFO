@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# __title__ = ' info '
-# __author__ = 'Chebl Youssef'
+__title__ = ' info Window '
+__author__ = 'Chebl Youssef'
 
 """Show all windows infomation..."""
 

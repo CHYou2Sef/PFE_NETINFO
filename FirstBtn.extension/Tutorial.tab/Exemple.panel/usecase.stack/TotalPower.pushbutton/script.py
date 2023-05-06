@@ -21,6 +21,8 @@ clr.AddReference('RevitAPI')
 clr.AddReference('RevitAPIUI')
 from Autodesk.Revit.DB import *
 
+#from pyrevit import requests
+
 from pyrevit import revit, DB
 import os
 os.path.exists
@@ -46,6 +48,11 @@ TPFloor = 0
 TPRoof  = 0
 TPWind  = 0
 TPWall  = 0
+
+f = open("C:\\Users\\YOUSSEF\\PFE\\Temp.txt", "r")
+Tex = float(f.read())
+f.close()
+
 
 print("*" * 100)
 #Bilan thermique
@@ -102,7 +109,7 @@ for window in windows:
     print ("{} * {} = {} W/m².K".format(u_val, s, H))
     #le coefficient de déperdition
     print ("= {} W/m².K ".format(H))
-    Tex = 17
+
     # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
     print ("By fixing the indoor temperature at 20°C and outdoor at {}°C".format(Tex))
     Pch = H * (20 - Tex)
@@ -133,10 +140,10 @@ for door in doors:
     # print("IsTransient :",window.IsTransient )
     # print("Category :",window.Category)
 
-    cons   = element.Symbol.GetThermalProperties().AnalyticConstructionName
+    #cons   = element.Symbol.GetThermalProperties().AnalyticConstructionName
     u_val  = element.Symbol.GetThermalProperties().HeatTransferCoefficient
     r_val  = element.Symbol.GetThermalProperties().ThermalResistance
-    vis    = element.Symbol.GetThermalProperties().VisualLightTransmittance
+    #vis    = element.Symbol.GetThermalProperties().VisualLightTransmittance
 
     # print ("It has Thermal Properties ?")
     # print(element.Symbol.HasThermalProperties())
@@ -166,7 +173,7 @@ for door in doors:
     print ("{} * {} = {} W/m².K".format(u_val, s, H))
     #le coefficient de déperdition
     print ("H = {} W/m².K ".format(H))
-    Tex = 17
+
     # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
     print ("By fixing the indoor temperature at 20°C and outdoor at {}°C".format(Tex))
     Pch = H * (20 - Tex)
@@ -190,55 +197,58 @@ for wall in walls:
     print("*"*10)
     print ("ID",id.IntegerValue )
     print("Name :",name)
-    Abso   = element.WallType.ThermalProperties.Absorptance
-    u_val  = element.WallType.ThermalProperties.HeatTransferCoefficient
-    r_val  = element.WallType.ThermalProperties.ThermalResistance
-    Roug    = element.WallType.ThermalProperties.Roughness
+    if element.WallType.ThermalProperties == None :
+        break
+    else:
+        Abso   = element.WallType.ThermalProperties.Absorptance
+        u_val  = element.WallType.ThermalProperties.HeatTransferCoefficient
+        r_val  = element.WallType.ThermalProperties.ThermalResistance
+        Roug    = element.WallType.ThermalProperties.Roughness
 
-    # print ("It has Thermal Properties ?")
-    # print(element.WallType.HasThermalProperties())
-    # print ("The construction gbXML name:",Abso)
-    # print ("The transfer  coefficient value (U-Value):",u_val)
-    # print ("The thermal resistance value (R-Value): ",r_val)
-    # print ("The visual light transmittance: ",Roug)
+        # print ("It has Thermal Properties ?")
+        # print(element.WallType.HasThermalProperties())
+        # print ("The construction gbXML name:",Abso)
+        # print ("The transfer  coefficient value (U-Value):",u_val)
+        # print ("The thermal resistance value (R-Value): ",r_val)
+        # print ("The visual light transmittance: ",Roug)
 
-    surf = 0
-    param_set = wall.Parameters
-    # PRINT PARAMETER VALUES FOR THE SELECTED ELEMENT
-    print("Parameter Values :")
-    for param in param_set:
-        # print(param.Definition.Name, param.AsString(), param.AsValueString(), param.AsDouble())
-        # print("Storage type: ", param.StorageType, ", read only :", param.IsReadOnly)
-        if (param.Definition.Name == "Surface"):
-            surf = param.AsValueString()
-    # s = math.ceil(surf) / 10
+        surf = 0
+        param_set = wall.Parameters
+        # PRINT PARAMETER VALUES FOR THE SELECTED ELEMENT
+        print("Parameter Values :")
+        for param in param_set:
+            # print(param.Definition.Name, param.AsString(), param.AsValueString(), param.AsDouble())
+            # print("Storage type: ", param.StorageType, ", read only :", param.IsReadOnly)
+            if (param.Definition.Name == "Surface"):
+                surf = param.AsValueString()
+        # s = math.ceil(surf) / 10
 
-    x = surf.split()
-    num1 = x[0]
-    #print(num1)
-    #print(type(num1))
-    num2 = float(num1)
-    #print(num2)
-    #print(type(num2))
+        x = surf.split()
+        num1 = x[0]
+        #print(num1)
+        #print(type(num1))
+        num2 = float(num1)
+        #print(num2)
+        #print(type(num2))
 
-    # Calcul la puissance de chauffage (déperdition surfacique)
-    print ("*** Calculation of heating power (area loss) \n θ(W) = H * ∆T")
-    print ("Surface = {} m²".format(num2))
-    print ("U = {} W/(m²/K)".format(u_val))
-    H = u_val * num2
-    print ("{} * {} = {} W/m².K".format(u_val, num2, H))
-    # le coefficient de déperdition
-    print ("the wastage coefficient = {} W/m².K ".format(H))
+        # Calcul la puissance de chauffage (déperdition surfacique)
+        print ("*** Calculation of heating power (area loss) \n θ(W) = H * ∆T")
+        print ("Surface = {} m²".format(num2))
+        print ("U = {} W/(m²/K)".format(u_val))
+        H = u_val * num2
+        print ("{} * {} = {} W/m².K".format(u_val, num2, H))
+        # le coefficient de déperdition
+        print ("the wastage coefficient = {} W/m².K ".format(H))
 
-    Tex = 17
-    # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
-    print ("By fixing the indoor temperature at 20°C and outdoor at {}°C".format(Tex))
-    Pch = H * (20 - Tex)
-    print ("{} * (20 - {}) = {} W ".format(H, Tex, Pch))
-    #la puissance de chauffage
-    print ("the heating power of '{}' = {} W ".format(name,Pch))
-    TPWall += Pch
-    print ("-" * 10)
+
+        # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
+        print ("By fixing the indoor temperature at 20°C and outdoor at {}°C".format(Tex))
+        Pch = H * (20 - Tex)
+        print ("{} * (20 - {}) = {} W ".format(H, Tex, Pch))
+        #la puissance de chauffage
+        print ("the heating power of '{}' = {} W ".format(name,Pch))
+        TPWall += Pch
+        print ("-" * 10)
 #La totale de puissance de chauffage des murs
 print ("The total heating power of the  {} walls = {} W".format(numWall, TPWall))
 
@@ -297,7 +307,7 @@ for floor in roofs:
     # le coefficient de déperdition
     print ("the wastage coefficient = {} W/m².K ".format(H))
 
-    Tex = 17
+
     # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
     print ("By fixing the indoor temperature at 20°C and outdoor at {}°C".format(Tex))
     Pch = H * (20 - Tex)
@@ -365,7 +375,7 @@ for floor in floors:
     # le coefficient de déperdition
     print ("the wastage coefficient = {} W/m².K ".format(H))
 
-    Tex = 17
+
     # En fixe à 20 °C la température résultante que les équipements de chauffage doivent permettre de maintenir au centre des pièces des logements
     print ("By fixing the indoor temperature at 20°C and outdoor at {}°C ".format(Tex))
     Pch = H * (20 - Tex)
@@ -382,4 +392,10 @@ TT = TPFloor + TPWall + TPWind + TPRoof
 print("*"*100)
 print ("The total heating power of the project = {}W".format(TT))
 print("*"*100)
+
+
+with open("C:\Users\YOUSSEF\PFE\TotalPower.txt", "w") as f:
+    f.write("{}".format(TT))
+
+f.close()
 

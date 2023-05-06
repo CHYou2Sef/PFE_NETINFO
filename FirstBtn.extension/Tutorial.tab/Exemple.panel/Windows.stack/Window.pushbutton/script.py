@@ -19,6 +19,7 @@ from urllib2 import request_host
 # Definit le document actif
 doc = __revit__.ActiveUIDocument.Document
 uidoc = __revit__.ActiveUIDocument
+
 # GET SELECTED ELEMENT
 selection = uidoc.Selection
 element_id = selection.PickObject(ObjectType.Element).ElementId

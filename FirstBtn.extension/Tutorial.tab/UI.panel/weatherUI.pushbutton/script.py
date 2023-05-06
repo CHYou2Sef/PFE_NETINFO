@@ -1,41 +1,66 @@
-# # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import os
 os.path.exists
+
+import sqlite3
+import sqlalchemy
 
 from itertools import count
 
 from rpw.utils.dotnet import Enum
 from rpw.ui.forms.resources import *
 
-from rpw.ui.forms import (FlexForm, Label, ComboBox, TextBox, TextBox, Separator, Button, CheckBox)
+from rpw.ui.forms import (FlexForm, Label, ComboBox, TextBox,Separator, Button, CheckBox)
 
 #import data
+f = open("C:\Users\YOUSSEF\PFE\Parameters.txt", "r")
 
+Id = "ID : " + f.readline()
+name  = "Name : " +  f.readline()
+lat   = "Latitude : " + f.readline()
+longi = "Longitude : " + f.readline()
+temp  = "Temperature average : " +f.readline()+" °C"
+hum   = "Humidity average : " + f.readline() +" %"
+wind  = "Wind average : " +  f.readline() +" metre/sec"
+cloud = "Cloud average : " + f.readline() +" %"
+perci = "Precipitation average : "+ f.readline() +" %"
+
+f.close()
 
 if __name__ == '__main__':
     """ TESTS """
     components = [
-                  Label('Parameters :'),
-                  ComboBox('combobox1', {"ID" : 27  ,
-                                         "Name": 27,
-                                         "Latitude" : 15,
-                                         "Longitude" : 27  ,
-                                         'Temperature:': 10,
-                                         'Humidity': 20.0,
-                                         "Visibility" : 1
+                  Label('Averge Parameters :'),
+                  Separator(),
+                  ComboBox("combobox1", {"ID"       : Id  ,
+                                          "Name"    : name,
+                                          "Latitude"  : lat,
+                                          "Longitude" : longi  ,
+                                          "Temperature" : temp,
+                                          "Humidity"    : hum,
+                                          "Wind"  : wind,
+                                          "Cloud" : cloud ,
+                                          "Precipitation" : perci
                                          }),
 
                   #Label('Enter Name:'),
-                  #TextBox('textbox1', Text="Default Value"),
-                  #CheckBox('checkbox1', 'Check this:'),
+                  #TextBox('ch1', Text="Metric Value"),
+                  CheckBox('checkbox1', 'Metric Value'),
                   Separator(),
-                  Button('OK'),Button('Annuler')]
+                  Label("NB :"  ),Label("This was a result for api and other code python that does not work in pyrevit"  ),
+                  Separator(),
+                  Button('OK')]
 
     form = FlexForm('Weather Parameters', components)
     form.show()
 
-    print(form.values)
+    if 1 == "checkbox1":
+        print(form.values , "(With metric values)")
+    else:
+        print(form.values , "(Without metric values)")
+
+
 
 
 #**************
