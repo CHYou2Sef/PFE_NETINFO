@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-__title__ = "Revit Parameters"
+__title__ = "Wall Comment"
 __doc__   = "Version 1.0"
+
+
 
 ###########################
 #import

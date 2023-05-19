@@ -33,22 +33,23 @@ if __name__ == '__main__':
     components = [
                   Label('Averge Parameters :'),
                   Separator(),
-                  ComboBox("combobox1", {"ID"       : Id  ,
-                                          "Name"    : name,
-                                          "Latitude"  : lat,
-                                          "Longitude" : longi  ,
-                                          "Temperature" : temp,
-                                          "Humidity"    : hum,
-                                          "Wind"  : wind,
-                                          "Cloud" : cloud ,
-                                          "Precipitation" : perci
+                  ComboBox("combobox1", {"ID "       : Id  ,
+                                          "Name "    : name,
+                                          "Latitude "  : lat,
+                                          "Longitude " : longi  ,
+                                          "Temperature " : temp,
+                                          "Humidity "    : hum,
+                                          "Wind "  : wind,
+                                          "Cloud " : cloud ,
+                                          "Precipitation " : perci
                                          }),
 
                   #Label('Enter Name:'),
                   #TextBox('ch1', Text="Metric Value"),
                   CheckBox('checkbox1', 'Metric Value'),
                   Separator(),
-                  Label("NB :"  ),Label("This was a result for api and other code python that does not work in pyrevit"  ),
+                  Label("NB :" ),Label("This result is for OpenWeather API ,")
+                                ,Label("Also other code python that work in RevitPythonShell "  ),
                   Separator(),
                   Button('OK')]
 

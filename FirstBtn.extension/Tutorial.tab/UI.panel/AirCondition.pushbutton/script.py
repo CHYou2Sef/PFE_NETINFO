@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # # ¹¹ €
-__name__ = "Air Condition UI"
-__title__ = "Choice Air Condition"
+__name__ = "Choice Air Condition"
+__title__ = "Air Condition UI"
 import csv
 
 import os
@@ -40,17 +40,19 @@ marg = 50
 
 i = 0
 
-if __name__ == 'Air Condition UI':
+if __name__ == 'Choice Air Condition':
     components = [
                     Label("*** Total Power Value:"),
-                    Label("La valeur de puissance de chaffage qu'on a calculer : {:.3f} W".format(TPower)),
+                    #La valeur de puissance de chauffage qu'on a calculer
+                    Label("The heating power value that we have calculated :"),
+                    Label(" {:.3f} W".format(TPower)),
                     Separator(),
                     TextBox("Write_your_prefer_marge", Text = "50"),
                     # CheckBox('checkbox1', 'Check this:'),
                     Separator(),
-                    Label(
-                        "* Donc on a choisi le climatisseur dont la puissance de chauffage est égale ou inferieur par {} au valeur calculer par le bilan thermique ..".format(
-                            marg)),
+                    # Donc on a choisi le climatiseur dont
+                    Label("*So we chose the air conditioner whose,"
+                    "the heating power is equal or lower by {} to the value calculated by the heat balance..".format(marg)),
                     Button('OK'), Button('Annuler')]
 
     form = FlexForm('Thermal balance', components)
@@ -107,4 +109,4 @@ components2 =  [ ComboBox("combobox1", {"Data :":
                                }),]
 form2 = FlexForm('Thermal balance', components2)
 form2.show()
-print(form.values)
+print(form.values , form2.values)

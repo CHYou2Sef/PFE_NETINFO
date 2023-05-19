@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__title__ = ' info Window '
+__title__ = 'All Windows Data '
 __author__ = 'Chebl Youssef'
 
 """Show all windows infomation..."""
@@ -32,12 +32,12 @@ print("*"*100)
 # Create a FilteredElementCollector to get all the windows
 windows = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType().ToElements()
 #windows = FilteredElementCollector(doc).OfClass(window).WhereElement
-
-
+TPWind  = 0
+numWind = 0
 # Loop through the windows and do something with them
 for window in windows:
     # Do something with the wall, for example, print its name
-
+    numWind += 1
     id  = window.Id
     element    = doc.GetElement(id)
 
@@ -84,6 +84,10 @@ for window in windows:
     print ("{} * (20 - {}) = {} W ".format(H, Tex, Pch))
     print ("la puissance de chauffage = {} W ".format(Pch))
     print ("-" * 10)
+    TPWind += Pch
+    print ("-" * 10)
+    #La totale de puissance de chauffage des  fenetres
+print ("The total heating power of the  {} windows = {}W".format(numWind ,TPWind))
 
 
 

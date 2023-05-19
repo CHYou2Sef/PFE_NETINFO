@@ -111,26 +111,31 @@ with open('C:\\Users\\YOUSSEF\\PFE\\Air_condition_dataset.csv') as csv_file:
         if abs(consumption - target_consumption) <= marg:
             target_rows.append(row)
 
-    # find the minimum price value among the rows with the target consumption
-    min_price = min(float(row[header.index("Price")]) for row in target_rows)
 
-    # min_price.astype(float) * 0.0372502
-    # find the rows that have the minimum price value
-    min_price_rows = [row for row in target_rows if float(row[header.index("Price")]) == min_price]
+    if len(target_rows)!= 0 :
 
-    print(
-        "* Donc on a choisi le climatisseur dont la puissance de chauffage est égale ou inferieur par {} au valeur calculer par le bilan thermique ..".format(
-            marg))
-    # loop through each row with the minimum price value
-    for row in min_price_rows:
-        # get the consumption value for this row
-        # consumption = float(row[header.index("Power_Consumption")])
-        # print the rows within 50 units of consumption of the minimum value
+        # find the minimum price value among the rows with the target consumption
+        min_price = min(float(row[header.index("Price")]) for row in target_rows)
 
-        print("Meilleur choix :")
-        for i, value in enumerate(row):
-            if header[i] == "Price":
-                value = float(value) * 0.0372502
-                print("{} : {:.3f} DT".format(header[i], value))
-            else:
-                print("{} : {} ".format(header[i], value))
+        # min_price.astype(float) * 0.0372502
+        # find the rows that have the minimum price value
+        min_price_rows = [row for row in target_rows if float(row[header.index("Price")]) == min_price]
+
+        print(
+            "* Donc on a choisi le climatisseur dont la puissance de chauffage est égale ou inferieur par {} au valeur calculer par le bilan thermique ..".format(
+                marg))
+        # loop through each row with the minimum price value
+        for row in min_price_rows:
+            # get the consumption value for this row
+            # consumption = float(row[header.index("Power_Consumption")])
+            # print the rows within 50 units of consumption of the minimum value
+
+            print("Meilleur choix :")
+            for i, value in enumerate(row):
+                if header[i] == "Price":
+                    value = float(value) * 0.0372502
+                    print("{} : {:.3f} DT".format(header[i], value))
+                else:
+                    print("{} : {} ".format(header[i], value))
+    else:
+        print ("* Le valeur calculer de puissance de consommation {:.3f} W n'existe pas dans le tableau des chauffages.".format(TPower))

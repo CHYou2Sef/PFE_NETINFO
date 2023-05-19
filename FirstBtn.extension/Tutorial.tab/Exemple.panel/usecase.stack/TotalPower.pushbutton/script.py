@@ -142,9 +142,10 @@ for door in doors:
 
     #cons   = element.Symbol.GetThermalProperties().AnalyticConstructionName
     u_val  = element.Symbol.GetThermalProperties().HeatTransferCoefficient
-    r_val  = element.Symbol.GetThermalProperties().ThermalResistance
+    #r_val  = element.Symbol.GetThermalProperties().ThermalResistance
     #vis    = element.Symbol.GetThermalProperties().VisualLightTransmittance
-
+    if (u_val == None):
+        forms.alert
     # print ("It has Thermal Properties ?")
     # print(element.Symbol.HasThermalProperties())
     # print ("The construction gbXML name:",cons)
@@ -198,6 +199,7 @@ for wall in walls:
     print ("ID",id.IntegerValue )
     print("Name :",name)
     if element.WallType.ThermalProperties == None :
+        print ("This Wall has not Thermal Properties ..")
         break
     else:
         Abso   = element.WallType.ThermalProperties.Absorptance
