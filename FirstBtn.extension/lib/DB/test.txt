@@ -1,0 +1,11 @@
+La température moyenne pour l'année 2022 est de 6 °C
+L'humidité moyenne pour l'année 2022 est de 97 %
+La vitese de vent moyenne pour l'année 2022 est de 2 m/s
+La valeur de mouenne de pression pour l'année 2022 est de 1016 hPa
+Taux d'erreur sur l'ensemble de test: 0.6666666666666667
+Précision matériau fenêtre: 0.0
+Précision matériau porte: 0.0
+Précision matériau mur: 0.6666666666666666
+materiau fenetre = ['verre tremp']
+materiau porte = ['acier']
+materiau mur = ['brique']

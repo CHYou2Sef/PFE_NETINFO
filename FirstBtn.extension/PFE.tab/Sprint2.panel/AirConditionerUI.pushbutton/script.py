@@ -49,13 +49,12 @@ if __name__ == 'Choice Air Condition':
                     Label("The heating power value that we have calculated :"),
                     Label(" {:.3f} W".format(TPower)),
                     Separator(),
-                    Label("The marge:"),
                     TextBox("Write_your_prefer_marge", Text = "50"),
                     # CheckBox('checkbox1', 'Check this:'),
                     Separator(),
                     # Donc on a choisi le climatiseur dont
-                    Label("So we chose the air conditioner whose,"
-                    "\nthe heating power is equal or lower by\n {} to the value calculated by the heat balance..".format(marg)),
+                    Label("*So we chose the air conditioner whose,"
+                    "the heating power is equal or lower by {} to the value calculated by the heat balance..".format(marg)),
                     Button('OK'), Button('Annuler')]
 
     form = FlexForm('Thermal balance', components)
